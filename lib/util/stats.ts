@@ -588,14 +588,6 @@ export class GitOperationStats {
     memCache.set('git-operations-stats', data);
   }
 
-  static wrap<T>(operationType: GitOperationType, callback: () => T): T {
-    const start = Date.now();
-    const result = callback();
-    const duration = Date.now() - start;
-    GitOperationStats.write(operationType, duration);
-    return result;
-  }
-
   static getReport(): Record<string, TimingStatsReport> {
     const report: Record<string, TimingStatsReport> = {};
     const data = memCache.get<LookupStatsData>('git-operations-stats') ?? {};
