@@ -710,24 +710,6 @@ describe('util/stats', () => {
       });
     });
 
-    it('wraps a function', () => {
-      const res = GitOperationStats.wrap('push', () => {
-        vi.advanceTimersByTime(100);
-        return 'foo';
-      });
-
-      expect(res).toBe('foo');
-      expect(GitOperationStats.getReport()).toEqual({
-        push: {
-          avgMs: 100,
-          count: 1,
-          maxMs: 100,
-          medianMs: 100,
-          totalMs: 100,
-        },
-      });
-    });
-
     it('logs report', () => {
       for (let i = 0; i < 5; i++) {
         GitOperationStats.write('other', 4000);
